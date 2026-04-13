@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class UIManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject winPanel;
     public GameObject losePanel;
+    public TMP_Text countdownText;
+    public TMP_Text checkpointText;
+    public TMP_Text positionText;
 
     private bool isPaused = false;
 
@@ -95,5 +99,29 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
         SceneManager.LoadScene(nextSceneIndex);
+    }
+
+    public void UpdateCountdown(string text)
+    {
+        if (countdownText != null)
+            countdownText.text = text;
+    }
+
+    public void UpdateCheckpoint(int current, int total)
+    {
+        if (checkpointText != null)
+            checkpointText.text = "Checkpoint: " + current + "/" + total;
+    }
+
+    public void UpdatePosition(int position)
+    {
+        string suffix = "th";
+
+        if (position == 1) suffix = "st";
+        else if (position == 2) suffix = "nd";
+        else if (position == 3) suffix = "rd";
+
+        if (positionText != null)
+            positionText.text = "Position: " + position + suffix;
     }
 }
