@@ -3,55 +3,84 @@ using UnityEngine.AI;
 
 public class RaceBotAI : MonoBehaviour
 {
-    public string botName = "Bot";
     public Transform[] waypoints;
     public int currentWaypointIndex = 0;
-    public int currentCheckpointIndex = 0;
+    public int currentCheckpointIndex = -1;
 
     private NavMeshAgent agent;
-    private bool raceStarted = false;
+    private bool hasFinished = false;
 
-    void Start()
+    public void ResumeBot()
+{
+    if (agent == null)
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+
+    agent.isStopped = false;
+
+    if (waypoints.Length > 0)
+    {
+        agent.SetDestination(waypoints[currentWaypointIndex].position);
+    }
+}
+
+    private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        agent.isStopped = true;
+
+        if (waypoints.Length > 0)
+        {
+            agent.SetDestination(waypoints[currentWaypointIndex].position);
+        }
     }
 
-    void Update()
+    private void Update()
     {
-        if (!raceStarted || waypoints.Length == 0) return;
+        if (RaceManager.Instance != null && RaceManager.Instance.raceEnded)
+            return;
 
-        if (!agent.pathPending && agent.remainingDistance < 1f)
+        if (hasFinished) return;
+        if (waypoints.Length == 0) return;
+
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             if (currentWaypointIndex < waypoints.Length - 1)
             {
                 currentWaypointIndex++;
                 agent.SetDestination(waypoints[currentWaypointIndex].position);
             }
+            else
+            {
+                FinishRace();
+            }
         }
-    }
-
-    public void StartRace()
-    {
-        raceStarted = true;
-        agent.isStopped = false;
-        currentWaypointIndex = 0;
-        agent.SetDestination(waypoints[currentWaypointIndex].position);
     }
 
     public void PassedCheckpoint(int checkpointIndex)
     {
-        if (checkpointIndex == currentCheckpointIndex)
+        if (checkpointIndex > currentCheckpointIndex)
         {
-            currentCheckpointIndex++;
+            currentCheckpointIndex = checkpointIndex;
         }
     }
 
-    public float DistanceToNextWaypoint()
+    void FinishRace()
     {
-        if (waypoints.Length == 0 || currentWaypointIndex >= waypoints.Length)
-            return 99999f;
+        if (hasFinished) return;
 
-        return Vector3.Distance(transform.position, waypoints[currentWaypointIndex].position);
+        hasFinished = true;
+        agent.isStopped = true;
+
+        if (RaceManager.Instance != null)
+        {
+            RaceManager.Instance.BotFinished();
+        }
+    }
+
+    public void StopBot()
+    {
+        if (agent == null)
+            agent = GetComponent<NavMeshAgent>();
+
+        agent.isStopped = true;
     }
 }

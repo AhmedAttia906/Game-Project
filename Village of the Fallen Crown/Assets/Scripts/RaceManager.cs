@@ -1,76 +1,99 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class RaceManager : MonoBehaviour
 {
     public static RaceManager Instance;
-    private int playerWaypointIndex = 0;
 
-    [Header("Player")]
     public PlayerController playerController;
+    public RaceBotAI[] bots;
+    public UIManager uiManager;
 
-    [Header("Bots")]
-    public List<RaceBotAI> bots = new List<RaceBotAI>();
-
-    [Header("Checkpoints")]
-    public int totalCheckpoints = 5;
-
-    [Header("Race State")]
     public bool raceStarted = false;
-    public bool raceFinished = false;
+    public bool raceEnded = false;
 
-    private int playerCheckpointIndex = 0;
-    private int finishedRacersCount = 0;
+    private int finishedCount = 0;
+    public int playerCheckpointIndex = -1;
+    public int playerWaypointIndex = -1;
 
-    void Awake()
+    private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
+        Instance = this;
     }
 
-    void Start()
+    private void Start()
     {
-        playerController.canMove = false;
-        UIManager.Instance.UpdateCheckpoint(0, totalCheckpoints);
         StartCoroutine(StartCountdown());
     }
 
+    void Update()
+{
+    if (!raceStarted || raceEnded) return;
+
+    if (uiManager != null)
+    {
+        uiManager.UpdatePosition(GetPlayerPosition());
+    }
+}
+
     IEnumerator StartCountdown()
     {
-        UIManager.Instance.UpdateCountdown("3");
-        yield return new WaitForSeconds(1f);
+        Time.timeScale = 1f;
+        raceStarted = false;
+        raceEnded = false;
+        finishedCount = 0;
 
-        UIManager.Instance.UpdateCountdown("2");
-        yield return new WaitForSeconds(1f);
-
-        UIManager.Instance.UpdateCountdown("1");
-        yield return new WaitForSeconds(1f);
-
-        UIManager.Instance.UpdateCountdown("GO!");
-        yield return new WaitForSeconds(1f);
-
-        UIManager.Instance.UpdateCountdown("");
-
-        raceStarted = true;
-        playerController.canMove = true;
+        if (playerController != null)
+            playerController.canMove = false;
 
         foreach (RaceBotAI bot in bots)
         {
             if (bot != null)
-                bot.StartRace();
+                bot.StopBot();
         }
+
+        if (uiManager != null) uiManager.UpdateCountdown("3");
+        yield return new WaitForSeconds(1f);
+
+        if (uiManager != null) uiManager.UpdateCountdown("2");
+        yield return new WaitForSeconds(1f);
+
+        if (uiManager != null) uiManager.UpdateCountdown("1");
+        yield return new WaitForSeconds(1f);
+
+        if (uiManager != null) uiManager.UpdateCountdown("GO!");
+        yield return new WaitForSeconds(1f);
+
+        if (uiManager != null) uiManager.UpdateCountdown("");
+
+        StartRace();
     }
 
-    public int GetPlayerCheckpointIndex()
+    public void StartRace()
     {
-        return playerCheckpointIndex;
+        Time.timeScale = 1f;
+        raceStarted = true;
+        raceEnded = false;
+        finishedCount = 0;
+        playerCheckpointIndex = -1;
+        playerWaypointIndex = -1;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        if (playerController != null)
+            playerController.canMove = true;
+
+        foreach (RaceBotAI bot in bots)
+        {
+            if (bot != null)
+                bot.ResumeBot();
+        }
     }
 
     public void PlayerPassedWaypoint(int waypointIndex)
     {
+        if (raceEnded) return;
+
         if (waypointIndex > playerWaypointIndex)
         {
             playerWaypointIndex = waypointIndex;
@@ -79,74 +102,101 @@ public class RaceManager : MonoBehaviour
 
     public void PlayerPassedCheckpoint(int checkpointIndex)
     {
-        if (checkpointIndex == playerCheckpointIndex)
+        if (raceEnded) return;
+
+        if (checkpointIndex == playerCheckpointIndex + 1)
         {
-            playerCheckpointIndex++;
-            UIManager.Instance.UpdateCheckpoint(playerCheckpointIndex, totalCheckpoints);
+            playerCheckpointIndex = checkpointIndex;
+
+            if (uiManager != null)
+            {
+                uiManager.UpdateCheckpoint(checkpointIndex + 1, 5);
+            }
         }
     }
 
-    public void RacerFinished(bool isPlayer)
+    public void PlayerFinished()
     {
-        finishedRacersCount++;
+        if (raceEnded) return;
 
-        if (isPlayer)
-        {
-            raceFinished = true;
+        finishedCount++;
 
-            if (finishedRacersCount == 1)
-                GameManager.Instance.LevelComplete();
-            else
-                GameManager.Instance.PlayerDied();
-        }
+        if (finishedCount == 1) WinRace();
+        else LoseRace();
     }
 
-    void Update()
+    public void BotFinished()
     {
-        if (!raceStarted || raceFinished) return;
+        if (raceEnded) return;
 
-        UpdatePlayerPositionUI();
+        finishedCount++;
+
+        if (finishedCount == 1) LoseRace();
     }
 
-    void UpdatePlayerPositionUI()
+    void WinRace()
     {
-        int playerPosition = 1;
+        raceEnded = true;
 
-        float playerProgress = GetPlayerProgress();
+        if (playerController != null)
+            playerController.canMove = false;
 
+        StopAllBots();
+
+        if (uiManager != null)
+            uiManager.ShowWin();
+    }
+
+    void LoseRace()
+    {
+        raceEnded = true;
+
+        if (playerController != null)
+            playerController.canMove = false;
+
+        StopAllBots();
+
+        if (uiManager != null)
+            uiManager.ShowLose();
+    }
+
+    void StopAllBots()
+    {
         foreach (RaceBotAI bot in bots)
         {
-            if (bot == null) continue;
+            if (bot != null)
+                bot.StopBot();
+        }
+    }
 
-            float botProgress = GetBotProgress(bot);
+    public int GetPlayerPosition()
+{
+    int position = 1;
 
-            if (botProgress > playerProgress)
+    foreach (RaceBotAI bot in bots)
+    {
+        if (bot == null) continue;
+
+        bool botAhead = false;
+
+        if (bot.currentCheckpointIndex > playerCheckpointIndex)
+        {
+            botAhead = true;
+        }
+        else if (bot.currentCheckpointIndex == playerCheckpointIndex)
+        {
+            if (bot.currentWaypointIndex > playerWaypointIndex)
             {
-                playerPosition++;
+                botAhead = true;
             }
         }
 
-        UIManager.Instance.UpdatePosition(playerPosition);
+        if (botAhead)
+        {
+            position++;
+        }
     }
 
-    float GetPlayerProgress()
-    {
-        float progress = 0f;
-
-        progress += GetPlayerCheckpointIndex() * 1000f;
-        progress += playerWaypointIndex * 10f;
-
-        return progress;
-    }
-
-    float GetBotProgress(RaceBotAI bot)
-    {
-        float progress = 0f;
-
-        progress += bot.currentCheckpointIndex * 1000f;
-        progress += bot.currentWaypointIndex * 10f;
-        progress -= bot.DistanceToNextWaypoint();
-
-        return progress;
-    }
+    return position;
+}
 }

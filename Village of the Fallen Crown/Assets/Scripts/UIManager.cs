@@ -64,9 +64,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowWin()
     {
-        if (winPanel != null)
-            winPanel.SetActive(true);
-
+        winPanel.SetActive(true);
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -74,9 +72,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowLose()
     {
-        if (losePanel != null)
-            losePanel.SetActive(true);
-
+        losePanel.SetActive(true);
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

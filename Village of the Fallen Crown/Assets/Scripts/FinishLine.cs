@@ -2,23 +2,19 @@ using UnityEngine;
 
 public class FinishLine : MonoBehaviour
 {
+    private bool playerFinished = false;
+
     private void OnTriggerEnter(Collider other)
     {
-        if (!RaceManager.Instance.raceStarted) return;
+        if (playerFinished) return;
 
         if (other.CompareTag("Player"))
         {
-            if (RaceManager.Instance.GetPlayerCheckpointIndex() >= RaceManager.Instance.totalCheckpoints)
+            playerFinished = true;
+
+            if (RaceManager.Instance != null)
             {
-                RaceManager.Instance.RacerFinished(true);
-            }
-        }
-        else
-        {
-            RaceBotAI bot = other.GetComponent<RaceBotAI>();
-            if (bot != null && bot.currentCheckpointIndex >= RaceManager.Instance.totalCheckpoints)
-            {
-                RaceManager.Instance.RacerFinished(false);
+                RaceManager.Instance.PlayerFinished();
             }
         }
     }

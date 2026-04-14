@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    
+
     [Header("Movement")]
     public float moveSpeed = 6f;
     public float crouchSpeed = 3f;
