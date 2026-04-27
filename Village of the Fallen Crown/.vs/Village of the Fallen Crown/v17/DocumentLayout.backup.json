@@ -1,0 +1,135 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{875A04D8-B8B7-B3BE-141D-5CD03F8157BE}|Assembly-CSharp.csproj|c:\\dev\\github\\game-project\\village of the fallen crown\\assets\\scripts\\enemyhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{875A04D8-B8B7-B3BE-141D-5CD03F8157BE}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemyhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{875A04D8-B8B7-B3BE-141D-5CD03F8157BE}|Assembly-CSharp.csproj|C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\assets\\scripts\\villagertrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{875A04D8-B8B7-B3BE-141D-5CD03F8157BE}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\villagertrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{875A04D8-B8B7-B3BE-141D-5CD03F8157BE}|Assembly-CSharp.csproj|C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\assets\\scripts\\horseinteract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{875A04D8-B8B7-B3BE-141D-5CD03F8157BE}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\horseinteract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{875A04D8-B8B7-B3BE-141D-5CD03F8157BE}|Assembly-CSharp.csproj|C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\assets\\scripts\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{875A04D8-B8B7-B3BE-141D-5CD03F8157BE}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{875A04D8-B8B7-B3BE-141D-5CD03F8157BE}|Assembly-CSharp.csproj|C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\assets\\scripts\\playerhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{875A04D8-B8B7-B3BE-141D-5CD03F8157BE}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playerhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{875A04D8-B8B7-B3BE-141D-5CD03F8157BE}|Assembly-CSharp.csproj|C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\assets\\scripts\\playerattack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{875A04D8-B8B7-B3BE-141D-5CD03F8157BE}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playerattack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{875A04D8-B8B7-B3BE-141D-5CD03F8157BE}|Assembly-CSharp.csproj|C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{875A04D8-B8B7-B3BE-141D-5CD03F8157BE}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HorseInteract.cs",
+              "DocumentMoniker": "C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\Assets\\Scripts\\HorseInteract.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\HorseInteract.cs",
+              "ToolTip": "C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\Assets\\Scripts\\HorseInteract.cs",
+              "RelativeToolTip": "Assets\\Scripts\\HorseInteract.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAYwDMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T08:47:26.417Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EnemyHealth.cs",
+              "DocumentMoniker": "C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\Assets\\Scripts\\EnemyHealth.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\EnemyHealth.cs",
+              "ToolTip": "C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\Assets\\Scripts\\EnemyHealth.cs",
+              "RelativeToolTip": "Assets\\Scripts\\EnemyHealth.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAYwDEAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T07:55:35.97Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PlayerHealth.cs",
+              "DocumentMoniker": "C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\Assets\\Scripts\\PlayerHealth.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerHealth.cs",
+              "ToolTip": "C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\Assets\\Scripts\\PlayerHealth.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PlayerHealth.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAYwCwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T08:31:28.858Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EnemyAI.cs",
+              "DocumentMoniker": "C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\Assets\\Scripts\\EnemyAI.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\EnemyAI.cs",
+              "ToolTip": "C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\Assets\\Scripts\\EnemyAI.cs",
+              "RelativeToolTip": "Assets\\Scripts\\EnemyAI.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T08:08:16.344Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PlayerAttack.cs",
+              "DocumentMoniker": "C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\Assets\\Scripts\\PlayerAttack.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerAttack.cs",
+              "ToolTip": "C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\Assets\\Scripts\\PlayerAttack.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PlayerAttack.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T07:56:47.815Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "VillagerTrigger.cs",
+              "DocumentMoniker": "C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\Assets\\Scripts\\VillagerTrigger.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\VillagerTrigger.cs",
+              "ToolTip": "C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\Assets\\Scripts\\VillagerTrigger.cs",
+              "RelativeToolTip": "Assets\\Scripts\\VillagerTrigger.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T07:34:05.674Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UIManager.cs",
+              "DocumentMoniker": "C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\Assets\\Scripts\\UIManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UIManager.cs",
+              "ToolTip": "C:\\dev\\GitHub\\Game-Project\\Village of the Fallen Crown\\Assets\\Scripts\\UIManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UIManager.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAAwFkAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T07:20:26.036Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
