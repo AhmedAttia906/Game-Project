@@ -9,7 +9,7 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.66F56946" = "terminal"
+	"last_search.66F56946" = "targeth"
 	"OpenInspectorPreview.66F56946" = "0"
 	"currentGroup.66F56946" = "all"
 }
@@ -68,6 +68,14 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"targe"
+	"ar"
+	"target"
+	"ches"
+	"targ"
+	"start"
+	"Arrow"
+	"ArrowPrefab"
 ]
 searchItemFavorites = [
 ]
