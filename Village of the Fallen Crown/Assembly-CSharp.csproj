@@ -71,10 +71,16 @@
     <Compile Include="Assets\Scripts\BossKnockback.cs" />
     <Compile Include="Assets\Scripts\MainMenuScripts\MainMenuManager.cs" />
     <Compile Include="Assets\Scripts\RaceWaypoint.cs" />
+    <Compile Include="Assets\Scripts\BowShoot.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\PlayerAttack.cs" />
     <Compile Include="Assets\Scripts\RaceManager.cs" />
+    <Compile Include="Assets\Scripts\VillagerTrigger.cs" />
     <Compile Include="Assets\Scripts\BossAttack.cs" />
+    <Compile Include="Assets\Scripts\EnemyHealth.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\HorseInteract.cs" />
+    <Compile Include="Assets\Scripts\Arrow.cs" />
     <Compile Include="Assets\Scripts\FinishLine.cs" />
     <Compile Include="Assets\Sword\Scripts\DanvilRotate.cs" />
     <Compile Include="Assets\Scripts\SwordCombat.cs" />
@@ -100,6 +106,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\Stylized NPC - Peasant Nolant\README.txt" />
+    <None Include="Assets\bow\README.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\CastlePack\Prefabs\readme.txt" />
