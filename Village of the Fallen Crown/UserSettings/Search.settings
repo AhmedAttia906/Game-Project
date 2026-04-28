@@ -9,7 +9,7 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.66F56946" = "targeth"
+	"last_search.66F56946" = "Universal Render Pipeline"
 	"OpenInspectorPreview.66F56946" = "0"
 	"currentGroup.66F56946" = "all"
 }
@@ -68,6 +68,10 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"Universal Render Pipeline"
+	"Upgrade Project Materials to URP"
+	"قث"
+	"س"
 	"targe"
 	"ar"
 	"target"
