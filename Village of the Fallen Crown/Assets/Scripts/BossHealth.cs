@@ -69,6 +69,8 @@ public class BossHealth : MonoBehaviour
         // wait for animation
         yield return new WaitForSeconds(deathDelay);
 
+        FindObjectOfType<FinalVictoryManager>().ShowFinalVictory();
+
         // disappear
         gameObject.SetActive(false);
     }

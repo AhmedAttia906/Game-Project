@@ -43,6 +43,10 @@ public class ChestOpen : MonoBehaviour
 
                 if (shield != null)
                     shield.SetActive(true);
+
+                FindObjectOfType<LevelCompleteManager>().TriggerLevelComplete();
+
+                isOpening = false; // VERY IMPORTANT (prevents repeating)
             }
         }
     }
