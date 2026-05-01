@@ -8,6 +8,9 @@ public class RaceManager : MonoBehaviour
     public PlayerController playerController;
     public RaceBotAI[] bots;
     public UIManager uiManager;
+    public GameObject rewardChest;
+    public AudioClip chestSound;
+    private AudioSource audioSource;
 
     public bool raceStarted = false;
     public bool raceEnded = false;
@@ -19,6 +22,7 @@ public class RaceManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -137,14 +141,21 @@ public class RaceManager : MonoBehaviour
     void WinRace()
     {
         raceEnded = true;
-
-        if (playerController != null)
-            playerController.canMove = false;
-
         StopAllBots();
 
-        if (uiManager != null)
-            uiManager.ShowWin();
+        if (rewardChest != null)
+        {
+            rewardChest.SetActive(true);
+            if (audioSource != null && chestSound != null)
+                audioSource.PlayOneShot(chestSound);
+        }
+        else
+        {
+            if (playerController != null)
+                playerController.canMove = false;
+            if (uiManager != null)
+                uiManager.ShowWin();
+        }
     }
 
     void LoseRace()

@@ -11,9 +11,20 @@ public class ShieldBash : MonoBehaviour
     public float knockbackForce = 4f;
     public float knockbackDuration = 0.2f;
 
+    [Header("Audio")]
+    public AudioClip bashSound;
+    private AudioSource audioSource;
+
     private bool isBashing = false;
     private bool canHit = false;
     private float timer = 0f;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -65,6 +76,9 @@ public class ShieldBash : MonoBehaviour
         isBashing = true;
         canHit = true;
         timer = 0f;
+
+        if (bashSound != null)
+            audioSource.PlayOneShot(bashSound);
     }
 
     void OnTriggerEnter(Collider other)

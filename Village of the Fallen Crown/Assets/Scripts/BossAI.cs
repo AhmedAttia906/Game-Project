@@ -26,6 +26,12 @@ public class BossAI : MonoBehaviour
     [Header("Death")]
     public float winDelay = 2f;     // wait after death animation, then show win screen
 
+    [Header("Audio")]
+    public AudioClip fightMusic;
+    public AudioClip[] damageSounds;
+    public AudioClip deathSound;
+    private AudioSource audioSource;
+
     private float lastAttackTime;
     private bool isActive = false;
     private bool isDead = false;
@@ -33,6 +39,10 @@ public class BossAI : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
 
         if (agent == null) agent = GetComponent<NavMeshAgent>();
 
@@ -62,6 +72,13 @@ public class BossAI : MonoBehaviour
 
         if (bossHealthBar != null)
             bossHealthBar.gameObject.SetActive(true);
+
+        if (fightMusic != null && audioSource != null)
+        {
+            audioSource.clip = fightMusic;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
     }
 
     void Update()
@@ -116,6 +133,9 @@ public class BossAI : MonoBehaviour
 
         if (animator != null) animator.SetTrigger("Hit");
 
+        if (damageSounds != null && damageSounds.Length > 0 && audioSource != null)
+            audioSource.PlayOneShot(damageSounds[Random.Range(0, damageSounds.Length)]);
+
         if (currentHealth <= 0) Die();
     }
 
@@ -125,6 +145,11 @@ public class BossAI : MonoBehaviour
         agent.isStopped = true;
 
         if (animator != null) animator.SetTrigger("Die");
+
+        if (deathSound != null && audioSource != null)
+            audioSource.PlayOneShot(deathSound);
+
+        audioSource.Stop();
         if (bossHealthBar != null) bossHealthBar.gameObject.SetActive(false);
 
         // Disable collider so the player can walk through the corpse if needed

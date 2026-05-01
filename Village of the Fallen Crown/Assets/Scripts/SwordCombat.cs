@@ -18,12 +18,20 @@ public class SwordCombat : MonoBehaviour
     [Header("Layers")]
     public LayerMask hitLayers = ~0;  // default: everything
 
+    [Header("Audio")]
+    public AudioClip swingSound;
+    private AudioSource audioSource;
+
     private float lastAttackTime;
 
     void Start()
     {
         if (playerCamera == null)
             playerCamera = Camera.main;
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     void Update()
@@ -38,6 +46,9 @@ public class SwordCombat : MonoBehaviour
     {
         if (Time.time < lastAttackTime + attackCooldown) return;
         lastAttackTime = Time.time;
+
+        if (swingSound != null)
+            audioSource.PlayOneShot(swingSound);
 
         if (swordAnimator != null)
             swordAnimator.SetTrigger("Swing");

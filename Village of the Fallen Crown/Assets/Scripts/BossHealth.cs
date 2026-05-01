@@ -12,11 +12,20 @@ public class BossHealth : MonoBehaviour
 
     public float deathDelay = 3f;
 
+    [Header("Audio")]
+    public AudioClip[] damageSounds;
+    public AudioClip deathSound;
+    public AudioClip victorySound;
+    private AudioSource audioSource;
+
     private bool isDead = false;
 
     void Start()
     {
         currentHealth = maxHealth;
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
 
         if (healthBar != null)
         {
@@ -36,6 +45,9 @@ public class BossHealth : MonoBehaviour
         {
             healthBar.value = currentHealth;
         }
+
+        if (damageSounds != null && damageSounds.Length > 0 && audioSource != null)
+            audioSource.PlayOneShot(damageSounds[Random.Range(0, damageSounds.Length)]);
 
         if (currentHealth <= 0)
         {
@@ -66,12 +78,31 @@ public class BossHealth : MonoBehaviour
             animator.SetTrigger("Die");
         }
 
+        yield return new WaitForSeconds(1f);
+
+        if (deathSound != null && audioSource != null)
+            audioSource.PlayOneShot(deathSound);
+
+        // stop fight OST
+        var bossFightStart = FindObjectOfType<BossFightStart>();
+        if (bossFightStart != null)
+        {
+            var src = bossFightStart.GetComponent<AudioSource>();
+            if (src != null) src.Stop();
+        }
+
         // wait for animation
         yield return new WaitForSeconds(deathDelay);
 
+        if (victorySound != null && audioSource != null)
+            audioSource.PlayOneShot(victorySound);
+
         FindObjectOfType<FinalVictoryManager>().ShowFinalVictory();
 
-        // disappear
+        // wait for victory sound to finish before deactivating (WaitForSecondsRealtime
+        // works even if FinalVictoryManager sets timeScale to 0)
+        yield return new WaitForSecondsRealtime(victorySound != null ? victorySound.length : 0f);
+
         gameObject.SetActive(false);
     }
 }

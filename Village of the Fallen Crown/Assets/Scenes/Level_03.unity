@@ -14,19 +14,19 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0.05, g: 0.07, b: 0.14, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.015
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.07, g: 0.09, b: 0.18, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: ca4063b229ef9344a9cbeeb1be8c0d4b, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -415,6 +415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossFightStart
   boss: {fileID: 812785082}
   bossHealthBar: {fileID: 1978122992}
+  fightMusic: {fileID: 8300000, guid: 761e04e2539b1c84cae6bbc009a1c24e, type: 3}
 --- !u!1 &32515642
 GameObject:
   m_ObjectHideFlags: 0
@@ -17478,6 +17479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SwordSwing
   swingSpeed: 8
   swordDamage: {fileID: 1792884580}
+  swingSound: {fileID: 8300000, guid: 369c94da0ffcf6645a7becc93c8705bf, type: 3}
 --- !u!65 &549249655
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28096,6 +28098,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5013152862604769615, guid: 5e97979bdc8e2104892702bd796aca50, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5052129936161988607, guid: 5e97979bdc8e2104892702bd796aca50, type: 3}
       propertyPath: m_LocalPosition.x
       value: 160
@@ -28146,6 +28152,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7127304484829858114, guid: 5e97979bdc8e2104892702bd796aca50, type: 3}
       propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8231103058551182781, guid: 5e97979bdc8e2104892702bd796aca50, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -28327,6 +28337,11 @@ MonoBehaviour:
   healthBar: {fileID: 1978122994}
   animator: {fileID: 1962536350}
   deathDelay: 3
+  damageSounds:
+  - {fileID: 8300000, guid: a721268bdd3606d458cf0e31c2839faf, type: 3}
+  - {fileID: 8300000, guid: 092a6f181534ec04a9a29bc01b00d77a, type: 3}
+  deathSound: {fileID: 8300000, guid: fa3d0d8624c86004685148b33d157672, type: 3}
+  victorySound: {fileID: 8300000, guid: c9f7a1dbb11661d489e3ad5f039a16cb, type: 3}
 --- !u!114 &812785087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28342,7 +28357,7 @@ MonoBehaviour:
   player: {fileID: 407095620}
   damage: 9
   attackRange: 3
-  attackCooldown: 1.5
+  attackCooldown: 2
   animator: {fileID: 1962536350}
 --- !u!114 &812785088
 MonoBehaviour:
@@ -49739,8 +49754,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 12
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.55, g: 0.68, b: 1, a: 1}
+  m_Intensity: 0.4
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -49749,7 +49764,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.9
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -49953,15 +49968,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'The Fallen Crown has been defeated.
 
-    
 
-    Peace has returned to
-    the village, and the people are free once again.
 
-    
+    Peace has returned to the village,
+    and the people are free once again.
 
-    With courage and
-    honor, you now stand as the protector of the kingdom.'
+
+
+    With courage and honor, you now stand
+    as the protector of the kingdom.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -69042,9 +69057,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 1148514824}
     m_Modifications:
     - target: {fileID: 1053236573501234471, guid: 9cbd81e2f8733b5438c25d4a644c7e79, type: 3}
+      propertyPath: bashSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 67fd498c46fd6df438f4782022f1550c, type: 3}
+    - target: {fileID: 1053236573501234471, guid: 9cbd81e2f8733b5438c25d4a644c7e79, type: 3}
       propertyPath: bashPosition
       value: 
       objectReference: {fileID: 1004109140}
+    - target: {fileID: 1053236573501234471, guid: 9cbd81e2f8733b5438c25d4a644c7e79, type: 3}
+      propertyPath: knockbackForce
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 1053236573501234471, guid: 9cbd81e2f8733b5438c25d4a644c7e79, type: 3}
       propertyPath: normalPosition
       value: 

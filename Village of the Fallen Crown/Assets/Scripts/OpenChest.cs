@@ -1,9 +1,11 @@
 using UnityEngine;
+using TMPro;
 
 public class ChestOpen : MonoBehaviour
 {
     public Transform chestTop;
     public GameObject shield;
+    public TextMeshProUGUI interactPrompt;
 
     public float openAngle = -70f;
     public float openSpeed = 3f;
@@ -20,6 +22,9 @@ public class ChestOpen : MonoBehaviour
 
         if (shield != null)
             shield.SetActive(false);
+
+        if (interactPrompt != null)
+            interactPrompt.gameObject.SetActive(false);
     }
 
     void Update()
@@ -27,6 +32,8 @@ public class ChestOpen : MonoBehaviour
         if (playerNear && Input.GetKeyDown(KeyCode.E))
         {
             isOpening = true;
+            if (interactPrompt != null)
+                interactPrompt.gameObject.SetActive(false);
         }
 
         if (isOpening)
@@ -56,6 +63,8 @@ public class ChestOpen : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerNear = true;
+            if (interactPrompt != null)
+                interactPrompt.gameObject.SetActive(true);
         }
     }
 
@@ -64,6 +73,8 @@ public class ChestOpen : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerNear = false;
+            if (interactPrompt != null)
+                interactPrompt.gameObject.SetActive(false);
         }
     }
 }

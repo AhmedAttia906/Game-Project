@@ -5,6 +5,7 @@ using System.Collections;
 public class LevelCompleteManager : MonoBehaviour
 {
     public GameObject levelCompletePanel;
+    public string nextSceneName = "Level_03";
 
     public void TriggerLevelComplete()
     {
@@ -26,7 +27,7 @@ public class LevelCompleteManager : MonoBehaviour
     public void NextLevel()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Level_03");
+        SceneManager.LoadScene(nextSceneName);
     }
 
     public void MainMenu()
