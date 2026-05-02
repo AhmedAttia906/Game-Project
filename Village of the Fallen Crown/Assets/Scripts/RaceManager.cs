@@ -14,10 +14,14 @@ public class RaceManager : MonoBehaviour
 
     public bool raceStarted = false;
     public bool raceEnded = false;
+    public bool waitForNPC = false;
 
     private int finishedCount = 0;
     public int playerCheckpointIndex = -1;
     public int playerWaypointIndex = -1;
+
+    private Vector3 playerStartPos;
+    private Quaternion playerStartRot;
 
     private void Awake()
     {
@@ -26,6 +30,30 @@ public class RaceManager : MonoBehaviour
     }
 
     private void Start()
+    {
+        if (playerController != null)
+        {
+            playerStartPos = playerController.transform.position;
+            playerStartRot = playerController.transform.rotation;
+        }
+
+        if (!waitForNPC)
+        {
+            StartCoroutine(StartCountdown());
+        }
+        else
+        {
+            foreach (RaceBotAI bot in bots)
+                if (bot != null) bot.StopBot();
+            if (uiManager != null)
+            {
+                uiManager.UpdateCountdown("");
+                uiManager.HideRaceHUD();
+            }
+        }
+    }
+
+    public void BeginRace()
     {
         StartCoroutine(StartCountdown());
     }
@@ -48,7 +76,14 @@ public class RaceManager : MonoBehaviour
         finishedCount = 0;
 
         if (playerController != null)
+        {
             playerController.canMove = false;
+            // Teleport player back to race starting line
+            var cc = playerController.GetComponent<CharacterController>();
+            if (cc != null) cc.enabled = false;
+            playerController.transform.SetPositionAndRotation(playerStartPos, playerStartRot);
+            if (cc != null) cc.enabled = true;
+        }
 
         foreach (RaceBotAI bot in bots)
         {
@@ -86,6 +121,9 @@ public class RaceManager : MonoBehaviour
 
         if (playerController != null)
             playerController.canMove = true;
+
+        if (uiManager != null)
+            uiManager.ShowRaceHUD();
 
         foreach (RaceBotAI bot in bots)
         {

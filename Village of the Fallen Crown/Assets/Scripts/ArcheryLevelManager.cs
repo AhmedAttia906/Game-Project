@@ -1,13 +1,20 @@
-﻿using UnityEngine;
+using UnityEngine;
 using TMPro;
 
 public class ArcheryLevelManager : MonoBehaviour
 {
     public TextMeshProUGUI startMessageText;
     public TextMeshProUGUI targetCounterText;
+    public GameObject targetBackground;
+    public TextMeshProUGUI timerText;
     public GameObject rewardChest;
     public AudioClip chestSound;
     private AudioSource audioSource;
+
+    public float timerDuration = 30f;
+    private float timeRemaining;
+    private bool timerActive = false;
+    private bool challengeStarted = false;
 
     private int targetsHit = 0;
     private int totalTargets = 3;
@@ -20,38 +27,87 @@ public class ArcheryLevelManager : MonoBehaviour
         if (rewardChest != null)
             rewardChest.SetActive(false);
 
-        UpdateCounter();
+        // Hide HUD until challenge starts
+        if (targetBackground != null)
+            targetBackground.SetActive(false);
+        if (targetCounterText != null)
+            targetCounterText.gameObject.SetActive(false);
+        if (timerText != null)
+            timerText.gameObject.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (!timerActive) return;
+
+        timeRemaining -= Time.deltaTime;
+
+        if (timerText != null)
+        {
+            int secs = Mathf.CeilToInt(timeRemaining);
+            timerText.text = "Time: " + secs;
+            timerText.color = secs <= 5 ? new UnityEngine.Color(1f, 0.25f, 0.25f) : new UnityEngine.Color(1f, 0.88f, 0.3f);
+        }
+
+        if (timeRemaining <= 0f)
+        {
+            timerActive = false;
+            TimerExpired();
+        }
+    }
+
+    public void StartChallenge()
+    {
+        if (challengeStarted) return;
+        challengeStarted = true;
+        timeRemaining = timerDuration;
+        timerActive = true;
+
+        if (targetBackground != null)
+            targetBackground.SetActive(true);
+        if (targetCounterText != null)
+        {
+            targetCounterText.gameObject.SetActive(true);
+            UpdateCounter();
+        }
+        if (timerText != null)
+            timerText.gameObject.SetActive(true);
 
         if (startMessageText != null)
         {
             startMessageText.gameObject.SetActive(true);
+            startMessageText.text = "Destroy all targets to unlock your reward";
             Invoke(nameof(HideStartMessage), 3f);
         }
     }
 
     void HideStartMessage()
     {
-        startMessageText.gameObject.SetActive(false);
+        if (startMessageText != null)
+            startMessageText.gameObject.SetActive(false);
     }
 
     public void TargetHit()
     {
+        if (!challengeStarted) return;
+
         targetsHit++;
         UpdateCounter();
 
         if (targetsHit >= totalTargets)
-        {
             CompleteChallenge();
-        }
     }
 
     void UpdateCounter()
     {
-        targetCounterText.text = "Targets: " + targetsHit + "/" + totalTargets;
+        if (targetCounterText != null)
+            targetCounterText.text = "Targets: " + targetsHit + "/" + totalTargets;
     }
 
     void CompleteChallenge()
     {
+        timerActive = false;
+
         if (rewardChest != null)
             rewardChest.SetActive(true);
 
@@ -63,5 +119,24 @@ public class ArcheryLevelManager : MonoBehaviour
             startMessageText.gameObject.SetActive(true);
             startMessageText.text = "Challenge Complete! Claim your chest.";
         }
+
+        if (timerText != null)
+            timerText.gameObject.SetActive(false);
+    }
+
+    void TimerExpired()
+    {
+        if (startMessageText != null)
+        {
+            startMessageText.gameObject.SetActive(true);
+            startMessageText.text = "Time's up! You failed the challenge.";
+        }
+
+        if (timerText != null)
+            timerText.gameObject.SetActive(false);
+
+        var ui = FindObjectOfType<UIManager>();
+        if (ui != null)
+            ui.ShowLose();
     }
 }

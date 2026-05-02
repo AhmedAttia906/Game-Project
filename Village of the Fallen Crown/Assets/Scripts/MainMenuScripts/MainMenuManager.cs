@@ -7,6 +7,26 @@ public class MainMenuManager : MonoBehaviour
     public GameObject mainMenuPanel;
     public GameObject settingsPanel;
 
+    [Header("Audio")]
+    public AudioClip mainTheme;
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.loop = true;
+        audioSource.playOnAwake = false;
+
+        if (mainTheme != null)
+        {
+            audioSource.clip = mainTheme;
+            audioSource.Play();
+        }
+    }
+
     public void StartGame()
     {
         SceneManager.LoadScene("Level_01");

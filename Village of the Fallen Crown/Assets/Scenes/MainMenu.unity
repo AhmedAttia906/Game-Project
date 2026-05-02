@@ -339,7 +339,7 @@ Transform:
   m_GameObject: {fileID: 498288944}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 402, y: 234, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -420,6 +420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
   mainMenuPanel: {fileID: 1707189880}
   settingsPanel: {fileID: 1415726399}
+  mainTheme: {fileID: 8300000, guid: a7df2df4ec2e8244b966710fd2d82f8a, type: 3}
 --- !u!4 &674331667
 Transform:
   m_ObjectHideFlags: 0
@@ -1493,6 +1494,7 @@ GameObject:
   - component: {fileID: 1549259927}
   - component: {fileID: 1549259926}
   - component: {fileID: 1549259925}
+  - component: {fileID: 1549259928}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1586,6 +1588,19 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1549259928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549259923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2247779df12af4243ac98891ddf36848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonClickSFX
+  clickSound: {fileID: 8300000, guid: 806651dd1a6884b4bb5c4d038f22c951, type: 3}
 --- !u!1 &1652728516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1752,7 +1767,7 @@ RectTransform:
   m_GameObject: {fileID: 1707189880}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.02, y: 1.02, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1339256866}

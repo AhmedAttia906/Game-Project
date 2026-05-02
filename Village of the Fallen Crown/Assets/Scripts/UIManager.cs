@@ -15,6 +15,10 @@ public class UIManager : MonoBehaviour
     public TMP_Text checkpointText;
     public TMP_Text positionText;
 
+    [Header("Audio")]
+    public AudioClip mainTheme;
+    private AudioSource audioSource;
+
     private bool isPaused = false;
 
     void Awake()
@@ -23,6 +27,13 @@ public class UIManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.loop = true;
+        audioSource.playOnAwake = false;
+        audioSource.ignoreListenerPause = true;
     }
 
     void Update()
@@ -50,6 +61,20 @@ public class UIManager : MonoBehaviour
         Time.timeScale = isPaused ? 0f : 1f;
         Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = isPaused;
+
+        if (isPaused)
+        {
+            if (mainTheme != null && audioSource != null)
+            {
+                audioSource.clip = mainTheme;
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            if (audioSource != null)
+                audioSource.Stop();
+        }
     }
 
     public void ResumeGame()
@@ -60,6 +85,9 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (audioSource != null)
+            audioSource.Stop();
     }
 
     public void ShowWin()
@@ -100,7 +128,23 @@ public class UIManager : MonoBehaviour
     public void UpdateCountdown(string text)
     {
         if (countdownText != null)
+        {
+            countdownText.gameObject.SetActive(!string.IsNullOrEmpty(text));
             countdownText.text = text;
+        }
+    }
+
+    public void ShowRaceHUD()
+    {
+        if (checkpointText != null) checkpointText.gameObject.SetActive(true);
+        if (positionText != null) positionText.gameObject.SetActive(true);
+    }
+
+    public void HideRaceHUD()
+    {
+        if (checkpointText != null) checkpointText.gameObject.SetActive(false);
+        if (positionText != null) positionText.gameObject.SetActive(false);
+        if (countdownText != null) countdownText.gameObject.SetActive(false);
     }
 
     public void UpdateCheckpoint(int current, int total)
