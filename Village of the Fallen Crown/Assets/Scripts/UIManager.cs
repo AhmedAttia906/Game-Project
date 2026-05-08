@@ -62,6 +62,8 @@ public class UIManager : MonoBehaviour
         Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = isPaused;
 
+        AudioListener.pause = isPaused;
+
         if (isPaused)
         {
             if (mainTheme != null && audioSource != null)
@@ -83,6 +85,7 @@ public class UIManager : MonoBehaviour
         pausePanel.SetActive(false);
 
         Time.timeScale = 1f;
+        AudioListener.pause = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 

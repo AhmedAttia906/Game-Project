@@ -234,33 +234,28 @@ public class RaceManager : MonoBehaviour
     }
 
     public int GetPlayerPosition()
-{
-    int position = 1;
-
-    foreach (RaceBotAI bot in bots)
     {
-        if (bot == null) continue;
+        int position = 1;
+        // bot.currentWaypointIndex means "heading TO this index" (0 at start = 0 passed)
+        // playerWaypointIndex means "last trigger passed" (-1 at start = 0 passed)
+        // Align semantics: playerWaypointsPassed = playerWaypointIndex + 1
+        int playerWaypointsPassed = playerWaypointIndex + 1;
 
-        bool botAhead = false;
+        foreach (RaceBotAI bot in bots)
+        {
+            if (bot == null) continue;
 
-        if (bot.currentCheckpointIndex > playerCheckpointIndex)
-        {
-            botAhead = true;
-        }
-        else if (bot.currentCheckpointIndex == playerCheckpointIndex)
-        {
-            if (bot.currentWaypointIndex > playerWaypointIndex)
+            if (bot.currentCheckpointIndex > playerCheckpointIndex)
             {
-                botAhead = true;
+                position++;
+            }
+            else if (bot.currentCheckpointIndex == playerCheckpointIndex &&
+                     bot.currentWaypointIndex > playerWaypointsPassed)
+            {
+                position++;
             }
         }
 
-        if (botAhead)
-        {
-            position++;
-        }
+        return position;
     }
-
-    return position;
-}
 }
