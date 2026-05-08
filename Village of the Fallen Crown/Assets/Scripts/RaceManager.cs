@@ -10,6 +10,7 @@ public class RaceManager : MonoBehaviour
     public UIManager uiManager;
     public GameObject rewardChest;
     public AudioClip chestSound;
+    public AudioClip raceMusic;
     private AudioSource audioSource;
 
     public bool raceStarted = false;
@@ -27,6 +28,9 @@ public class RaceManager : MonoBehaviour
     {
         Instance = this;
         audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
     }
 
     private void Start()
@@ -125,6 +129,13 @@ public class RaceManager : MonoBehaviour
         if (uiManager != null)
             uiManager.ShowRaceHUD();
 
+        if (raceMusic != null && audioSource != null)
+        {
+            audioSource.clip = raceMusic;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+
         foreach (RaceBotAI bot in bots)
         {
             if (bot != null)
@@ -181,6 +192,8 @@ public class RaceManager : MonoBehaviour
         raceEnded = true;
         StopAllBots();
 
+        if (audioSource != null) audioSource.Stop();
+
         if (rewardChest != null)
         {
             rewardChest.SetActive(true);
@@ -202,6 +215,8 @@ public class RaceManager : MonoBehaviour
 
         if (playerController != null)
             playerController.canMove = false;
+
+        if (audioSource != null) audioSource.Stop();
 
         StopAllBots();
 

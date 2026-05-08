@@ -9,6 +9,7 @@ public class ArcheryLevelManager : MonoBehaviour
     public TextMeshProUGUI timerText;
     public GameObject rewardChest;
     public AudioClip chestSound;
+    public AudioClip challengeMusic;
     private AudioSource audioSource;
 
     public float timerDuration = 30f;
@@ -22,6 +23,9 @@ public class ArcheryLevelManager : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
         targetsHit = 0;
 
         if (rewardChest != null)
@@ -73,6 +77,13 @@ public class ArcheryLevelManager : MonoBehaviour
         if (timerText != null)
             timerText.gameObject.SetActive(true);
 
+        if (challengeMusic != null && audioSource != null)
+        {
+            audioSource.clip = challengeMusic;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+
         if (startMessageText != null)
         {
             startMessageText.gameObject.SetActive(true);
@@ -108,6 +119,8 @@ public class ArcheryLevelManager : MonoBehaviour
     {
         timerActive = false;
 
+        if (audioSource != null) audioSource.Stop();
+
         if (rewardChest != null)
             rewardChest.SetActive(true);
 
@@ -126,6 +139,8 @@ public class ArcheryLevelManager : MonoBehaviour
 
     void TimerExpired()
     {
+        if (audioSource != null) audioSource.Stop();
+
         if (startMessageText != null)
         {
             startMessageText.gameObject.SetActive(true);

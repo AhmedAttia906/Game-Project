@@ -6,6 +6,7 @@ public class MainMenuManager : MonoBehaviour
 {
     public GameObject mainMenuPanel;
     public GameObject settingsPanel;
+    public GameObject storyPanel;
 
     [Header("Audio")]
     public AudioClip mainTheme;
@@ -28,6 +29,19 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void StartGame()
+    {
+        if (storyPanel != null)
+        {
+            mainMenuPanel.SetActive(false);
+            storyPanel.SetActive(true);
+        }
+        else
+        {
+            SceneManager.LoadScene("Level_01");
+        }
+    }
+
+    public void BeginJourney()
     {
         SceneManager.LoadScene("Level_01");
     }
