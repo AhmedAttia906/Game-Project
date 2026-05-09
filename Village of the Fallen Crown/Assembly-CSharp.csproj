@@ -92,7 +92,6 @@
     <Compile Include="Assets\Scripts\Arrow.cs" />
     <Compile Include="Assets\Scripts\FinalVictorytManager.cs" />
     <Compile Include="Assets\Scripts\FinishLine.cs" />
-    <Compile Include="Assets\Sword\Scripts\DanvilRotate.cs" />
     <Compile Include="Assets\Scripts\SwordCombat.cs" />
   </ItemGroup>
   <ItemGroup>
